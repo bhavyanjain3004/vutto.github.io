@@ -6,7 +6,13 @@ let socket = null;
 const activeAuctionRooms = new Set();
 export function getRealtimeSocket() {
   if (!socket) {
-    socket = io(window.location.origin, {
+    const socketUrl =
+      import.meta.env.VITE_WS_URL ||
+      (import.meta.env.VITE_API_BASE_URL
+        ? import.meta.env.VITE_API_BASE_URL.replace(/\/api\/v1\/?$/, '')
+        : window.location.origin);
+
+    socket = io(socketUrl, {
       path: '/socket.io',
       auth: (cb) => {
         const token = localStorage.getItem('vutto_access_token') || '';
