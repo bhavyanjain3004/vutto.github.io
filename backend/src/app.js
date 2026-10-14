@@ -14,7 +14,19 @@ const allowedOrigin = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
 
 app.use(
   cors({
-    origin: [allowedOrigin, 'http://localhost:5173'],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigin === '*' ||
+        origin === allowedOrigin ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.github.io') ||
+        origin.includes('localhost')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );

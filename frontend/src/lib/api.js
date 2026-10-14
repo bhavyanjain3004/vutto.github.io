@@ -1,7 +1,14 @@
 import { joinAuctionRoom, updateSocketAuthToken } from './realtime';
 import { toast } from 'sonner';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api/v1';
+const rawBaseUrl = import.meta.env.VITE_API_BASE_URL ?? '/api/v1';
+export const API_BASE_URL = (() => {
+  const clean = rawBaseUrl.replace(/\/+$/, '');
+  if (clean && !clean.includes('/api/v1') && !clean.endsWith('/api')) {
+    return `${clean}/api/v1`;
+  }
+  return clean || '/api/v1';
+})();
 
 const KEYS = {
   accessToken: 'vutto_access_token',

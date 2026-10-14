@@ -3,11 +3,9 @@ const { Server } = require('socket.io');
 let ioInstance = null;
 
 function initSocket(httpServer) {
-  const allowedOrigin = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
-
   ioInstance = new Server(httpServer, {
     cors: {
-      origin: [allowedOrigin, 'http://localhost:5173'],
+      origin: (origin, callback) => callback(null, true),
       credentials: true,
       methods: ['GET', 'POST'],
     },
