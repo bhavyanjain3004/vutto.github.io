@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+
+# Production build outputs
+dist
+
+# Test coverage
+coverage
+
+# Environment variables & secrets 
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+
+# System & Editor files
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+
+# Seed data & fixtures
+backend/prisma/seed.js
+backend/prisma/seed.ts
+**/seed.js
+**/seed.ts
+
